@@ -58,4 +58,11 @@
   become: yes
   become_user: "{{ local_username }}"
 
+- name: install fuzzy finder
+  apt:
+    name: fzf
+    update_cache: yes
+    state: present
+    install_recommends: no
+
 ...

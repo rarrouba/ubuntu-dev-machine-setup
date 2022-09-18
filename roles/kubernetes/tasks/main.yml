@@ -1,0 +1,65 @@
+---
+- name: Download Kubernetes Signing Key
+  register: k8s_gpg
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+  when: 
+  - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Add Kubernetes repository
+  register: k8s_repo
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    filename: kubernetes
+  when: 
+  - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu' 
+  - k8s_gpg is succeeded
+
+- name: Install kubectl
+  register: kubectl_installed
+  apt:
+    name: kubectl
+    update_cache: yes
+    state: present
+    install_recommends: no
+  when: 
+  - k8s_repo is succeeded
+
+- name:      Ensure git package is present
+  package:
+    name:    git
+    state:   present
+
+- name:      Ensure kubectx repository is cloned from GitHub
+  git:
+    repo:    "https://github.com/ahmetb/kubectx"
+    dest:    "/opt/github/kubectx"
+    version: "master"
+
+- name:      Ensure kubectx and kubens links are created
+  file:
+    src:     "/opt/github/kubectx/{{ item }}"
+    dest:    "/usr/local/bin/{{ item }}"
+    state:   link
+  loop:
+    - kubens
+    - kubectx
+
+- name: Fetch k3d script
+  get_url: 
+    url: "https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh"
+    dest: "/tmp/k3d_install.sh"
+    mode: +x
+
+- name: Install k3d
+  shell: /tmp/k3d_install.sh
+  args:
+    _raw_params: TAG=v5.4.6
+
+- name: Remove k3d script
+  file: 
+    path: "/tmp/k3d_install.sh"
+    state: absent
+

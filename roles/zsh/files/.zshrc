@@ -15,14 +15,19 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 source <(antidote init)
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
+antidote bundle ohmyzsh/ohmyzsh
+antidote bundle ohmyzsh/ohmyzsh path:plugins/battery
 antidote bundle ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 antidote bundle ohmyzsh/ohmyzsh path:plugins/colorize
 antidote bundle ohmyzsh/ohmyzsh path:plugins/docker
 antidote bundle ohmyzsh/ohmyzsh path:plugins/encode64
+antidote bundle ohmyzsh/ohmyzsh path:plugins/fzf
 antidote bundle ohmyzsh/ohmyzsh path:plugins/gem
 antidote bundle ohmyzsh/ohmyzsh path:plugins/git
 antidote bundle ohmyzsh/ohmyzsh path:plugins/git-extras
 antidote bundle ohmyzsh/ohmyzsh path:plugins/kubectl
+antidote bundle ohmyzsh/ohmyzsh path:plugins/kubectx
+antidote bundle ohmyzsh/ohmyzsh path:plugins/kube-ps1
 antidote bundle ohmyzsh/ohmyzsh path:plugins/node
 antidote bundle ohmyzsh/ohmyzsh path:plugins/npm
 antidote bundle ohmyzsh/ohmyzsh path:plugins/pip
@@ -34,9 +39,13 @@ antidote bundle ohmyzsh/ohmyzsh path:plugins/sudo
 antidote bundle ohmyzsh/ohmyzsh path:plugins/vagrant
 antidote bundle ohmyzsh/ohmyzsh path:plugins/yarn
 
+antidote bundle ahmetb/kubectx path:completion kind:fpath
+
 # Syntax highlighting and autosuggestions
 antidote bundle zsh-users/zsh-syntax-highlighting
 antidote bundle zsh-users/zsh-autosuggestions
+
+antidote bundle belak/zsh-utils path:completion
 
 # pure theme
 # https://github.com/sindresorhus/pure
