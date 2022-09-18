@@ -104,7 +104,7 @@ Summary of packages that get installed and configured based on roles:
     - additional vim settings are enabled in `~/.vim_runtime/my_configs.vim` which are not part of the Vim Distribution. Edit this file if necessary.
 - **role: zsh**
   - install zsh package and set user shell to zsh
-  - install antigen zsh plugin manager
+  - install antidote zsh plugin manager
   - copy and enable sample `~/.zshrc` file if one does not exist
     - contains function to stop ssh-agent from asking for encrypted ssh key password repeatedly when launching new terminal
   - install ohmyzsh/ohmyzsh and enable some bundled plugins

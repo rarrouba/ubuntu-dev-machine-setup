@@ -1,51 +1,55 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export TERM="xterm-256color"
 
-source ~/.antigen/antigen.zsh
+# Source antidote.
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+# Initialize antidote's dynamic mode, which changes `antidote bundle`
+# from static mode.
+source <(antidote init)
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle colored-man-pages
-antigen bundle colorize
-antigen bundle docker
-antigen bundle encode64
-antigen bundle gem
-antigen bundle git
-antigen bundle git-extras
-antigen bundle httpie
-antigen bundle kubectl
-antigen bundle node
-antigen bundle npm
-antigen bundle pep8
-antigen bundle pip
-antigen bundle pipenv
-antigen bundle pylint
-antigen bundle python
-antigen bundle ruby
-antigen bundle sudo
-antigen bundle vagrant
-antigen bundle yarn
+antidote bundle ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+antidote bundle ohmyzsh/ohmyzsh path:plugins/colorize
+antidote bundle ohmyzsh/ohmyzsh path:plugins/docker
+antidote bundle ohmyzsh/ohmyzsh path:plugins/encode64
+antidote bundle ohmyzsh/ohmyzsh path:plugins/gem
+antidote bundle ohmyzsh/ohmyzsh path:plugins/git
+antidote bundle ohmyzsh/ohmyzsh path:plugins/git-extras
+antidote bundle ohmyzsh/ohmyzsh path:plugins/kubectl
+antidote bundle ohmyzsh/ohmyzsh path:plugins/node
+antidote bundle ohmyzsh/ohmyzsh path:plugins/npm
+antidote bundle ohmyzsh/ohmyzsh path:plugins/pip
+antidote bundle ohmyzsh/ohmyzsh path:plugins/pipenv
+antidote bundle ohmyzsh/ohmyzsh path:plugins/pylint
+antidote bundle ohmyzsh/ohmyzsh path:plugins/python
+antidote bundle ohmyzsh/ohmyzsh path:plugins/ruby
+antidote bundle ohmyzsh/ohmyzsh path:plugins/sudo
+antidote bundle ohmyzsh/ohmyzsh path:plugins/vagrant
+antidote bundle ohmyzsh/ohmyzsh path:plugins/yarn
 
 # Syntax highlighting and autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
+antidote bundle zsh-users/zsh-syntax-highlighting
+antidote bundle zsh-users/zsh-autosuggestions
 
 # pure theme
 # https://github.com/sindresorhus/pure
-#antigen bundle mafredri/zsh-async
-#antigen bundle sindresorhus/pure
+#antidote bundle mafredri/zsh-async
+#antidote bundle sindresorhus/pure
 
 # powerlevel10k theme
 # https://github.com/romkatv/powerlevel10k
-#antigen theme romkatv/powerlevel10k
+antidote bundle romkatv/powerlevel10k
 
 # bullet train theme
 # https://github.com/caiogondim/bullet-train.zsh
-antigen theme caiogondim/bullet-train.zsh bullet-train
-
-# Tell antigen that you're done.
-antigen apply
+#antidote bundle caiogondim/bullet-train.zsh
 
 ##### START Fix for ssh-agent {
 # Ref: http://mah.everybody.org/docs/ssh
@@ -87,3 +91,6 @@ export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 [ -f ~/.shell_aliases  ] && source ~/.shell_aliases
 [ -f ~/.shell_functions  ] && source ~/.shell_functions
 [ -f ~/.shell_variables ] && source ~/.shell_variables
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

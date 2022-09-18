@@ -11,11 +11,11 @@
     name: "{{ local_username }}"
     shell: /bin/zsh
 
-- name: install antigen
+- name: install antidote
   git:
-    dest: "~{{ local_username }}/.antigen"
-    repo: "{{ zsh_antigen_url }}"
-    version: "{{ zsh_antigen_git_version }}"
+    dest: "~{{ local_username }}/.antidote"
+    repo: "{{ zsh_antidote_url }}"
+    version: "{{ zsh_antidote_git_version }}"
   become: yes
   become_user: "{{ local_username }}"
 
