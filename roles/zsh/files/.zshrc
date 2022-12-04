@@ -86,6 +86,13 @@ else
 fi
 ##### } END Fix for ssh-agent
 
+# Start Docker daemon automatically when logging in if not running.
+RUNNING=`ps aux | grep dockerd | grep -v grep`
+if [ -z "$RUNNING" ]; then
+    sudo dockerd > /dev/null 2>&1 &
+    disown
+fi
+
 # golang
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
